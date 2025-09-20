@@ -6,9 +6,13 @@ Core Features:
 - List / Add / Edit / Delete employees
 - Data persisted in `localStorage` via Angular service
 - Form validation (name ≥3 chars, valid email, date not in future)
+- Sorting by Name and Date of Joining.
+- Filtering by Department.
+- Search by Name or Email (case-insensitive).
+
 Bonus Features:
 - Dark mode toggle
-
+- Export to CSV
 How to use:
 1. Run `npm install` to install dependencies.
 2. Run `ng serve` (Angular CLI v20+) and open `http://localhost:4200`.

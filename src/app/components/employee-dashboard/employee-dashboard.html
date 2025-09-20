@@ -68,6 +68,7 @@
 
     <div class="form-actions">
       <button type="submit">{{ editingId ? 'Update' : 'Add' }}</button>
+      <button type="button" class="secondary" (click)="cancel()">Cancel</button>
     </div>
   </form>
 </section>
@@ -85,6 +86,22 @@
       <option [value]="d">{{ d }}</option>
     }
   </select>
+
+  <div class="sorts">
+    <button (click)="setSort('name')">
+      Sort by Name
+      @if (sortField === 'name') {
+        {{ sortAsc ? '▲' : '▼' }}
+      }
+    </button>
+    <button (click)="setSort('dateOfJoining')">
+      Sort by DOJ
+      @if (sortField === 'dateOfJoining') {
+        {{ sortAsc ? '▲' : '▼' }}
+      }
+    </button>
+    <button (click)="exportCsv()">Export CSV</button>
+  </div>
 
 </section>
 
