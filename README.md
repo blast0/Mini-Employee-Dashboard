@@ -1,4 +1,5 @@
 # Mini Employee Dashboard (Angular v20)
+Live Demo Here: https://blast0.github.io/Mini-Employee-Dashboard-Deployment/#/
 
 This is a minimal Angular (v20) project scaffold for the **Mini Employee Dashboard** assignment.
 
