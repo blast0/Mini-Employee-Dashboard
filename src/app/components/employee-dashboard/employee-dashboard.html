@@ -1,0 +1,124 @@
+<div class="topbar">
+  <h2>Employee Dashboard</h2>
+</div>
+
+<section class="employee-form">
+  <h3>{{ editingId ? 'Edit Employee' : 'Add Employee' }}</h3>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="row">
+      <label>
+        Name
+        <input type="text" formControlName="name" />
+        @if (f['name'].touched && f['name'].invalid) {
+          <small class="error">
+            @if (f['name'].errors?.['required']) {
+              Name is required.
+            }
+            @if (f['name'].errors?.['minlength']) {
+              Name must be at least 3 characters.
+            }
+          </small>
+        }
+      </label>
+
+      <label>
+        Email
+        <input type="email" formControlName="email" />
+        @if (f['email'].touched && f['email'].invalid) {
+          <small class="error">
+            @if (f['email'].errors?.['required']) {
+              Email is required.
+            }
+            @if (f['email'].errors?.['email']) {
+              Enter a valid email.
+            }
+          </small>
+        }
+      </label>
+
+      <label>
+        Department
+        <select formControlName="department">
+          <option value="">-- Select --</option>
+          @for (d of departments; track d) {
+            <option [value]="d">{{ d }}</option>
+          }
+        </select>
+        @if (f['department'].touched && f['department'].invalid) {
+          <small class="error">Department is required.</small>
+        }
+      </label>
+
+      <label>
+        Date of Joining
+        <input type="date" formControlName="dateOfJoining" />
+        @if (f['dateOfJoining'].touched && f['dateOfJoining'].invalid) {
+          <small class="error">
+            @if (f['dateOfJoining'].errors?.['required']) {
+              Date of joining is required.
+            }
+            @if (f['dateOfJoining'].errors?.['futureDate']) {
+              Date cannot be in the future.
+            }
+          </small>
+        }
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit">{{ editingId ? 'Update' : 'Add' }}</button>
+    </div>
+  </form>
+</section>
+
+<section class="controls">
+  <input
+    type="text"
+    placeholder="Search by name or email"
+    [formControl]="searchControl"
+  />
+
+  <select [formControl]="filterDeptControl">
+    <option value="">All Departments</option>
+    @for (d of departments; track d) {
+      <option [value]="d">{{ d }}</option>
+    }
+  </select>
+
+</section>
+
+<section class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Date of Joining</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (emp of filteredEmployees; track emp.id) {
+        <tr>
+          <td>{{ emp.id }}</td>
+          <td>{{ emp['name'] }}</td>
+          <td>{{ emp['email'] }}</td>
+          <td>{{ emp['department'] }}</td>
+          <td>{{ emp['dateOfJoining'] }}</td>
+          <td class="actions">
+            <button (click)="startEdit(emp)">Edit</button>
+            <button class="danger" (click)="delete(emp.id)">Delete</button>
+          </td>
+        </tr>
+      }
+      @if (filteredEmployees.length === 0) {
+        <tr>
+          <td colspan="6" class="empty">No employees found.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

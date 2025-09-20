@@ -1,0 +1,117 @@
+:host {
+  display: block;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  padding: 18px;
+  color: #222;
+  background: #f7f7f8;
+  min-height: 100vh;
+  transition: background .2s, color .2s;
+}
+
+/* dark mode */
+body.dark-theme :host {
+  background: #121217;
+  color: #e8e8ea;
+}
+
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+.topbar h2 { margin:0; }
+
+.form-card {
+  background: white;
+  padding:12px;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
+  margin-bottom:16px;
+}
+body.dark-theme :host .form-card {
+  background:#1a1a1f;
+  box-shadow:none;
+}
+
+.row {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:12px;
+  align-items:start;
+}
+
+label { display:block; font-size:13px; }
+input, select {
+  width:100%;
+  padding:8px;
+  margin-top:6px;
+  border-radius:6px;
+  border:1px solid #ddd;
+  box-sizing:border-box;
+  outline: none;
+}
+body.dark-theme :host input,
+body.dark-theme :host select {
+  background:#121218;
+  border:1px solid #2a2a33;
+  color:inherit;
+  
+}
+
+.error { color:#c62828; font-size:12px; display:block; margin-top:6px; }
+
+.form-actions {
+  margin-top:12px;
+  display:flex;
+  gap:8px;
+}
+button {
+  padding:8px 12px;
+  border-radius:6px;
+  border:0;
+  cursor:pointer;
+  background:#0b5cff;
+  color:white;
+}
+button.secondary { background:#6b7280; }
+button.danger { background:#d32f2f; }
+
+.controls {
+  margin:12px 0;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.controls input, .controls select { width:auto; min-width:180px; outline: none; }
+
+.sorts button { margin-right:6px; margin-top: 5px; }
+
+.table-wrap table {
+  width:100%;
+  border-collapse:collapse;
+  background:transparent;
+}
+thead th {
+  text-align:left;
+  padding:10px;
+  font-size:13px;
+  color:#555;
+}
+tbody td {
+  padding:10px;
+  border-top:1px solid rgba(0,0,0,0.06);
+  font-size:14px;
+}
+body.dark-theme :host tbody td {
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+
+.actions button { margin-right:6px; }
+
+.empty { text-align:center; padding:18px; color:#666; }
+
+/* switch */
+.switch { display:flex; gap:8px; align-items:center; cursor:pointer; user-select:none;}
+.switch input { transform:scale(1.1); margin-right:6px; outline: none; }
