@@ -108,10 +108,70 @@ body.dark-theme :host tbody td {
   border-top:1px solid rgba(255,255,255,0.04);
 }
 
-.actions button { margin-right:6px; }
+.actions button { margin:2px; }
 
 .empty { text-align:center; padding:18px; color:#666; }
 
 /* switch */
 .switch { display:flex; gap:8px; align-items:center; cursor:pointer; user-select:none;}
 .switch input { transform:scale(1.1); margin-right:6px; outline: none; }
+
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  table-layout: fixed; /* Ensures that the table cells take up equal space */
+}
+
+thead th, tbody td {
+  text-align: left;
+  padding: 10px;
+  font-size: 13px;
+  color: #555;
+  overflow-wrap: break-word; /* Ensures long words like emails or IDs wrap */
+  word-wrap: break-word; /* Additional fallback for some older browsers */
+}
+
+tbody td {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 14px;
+  white-space: normal; /* Prevents text from overflowing out of table cell */
+}
+
+body.dark-theme :host tbody td {
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 768px) {
+  .table-wrap table {
+    font-size: 12px; /* Reduce font size for mobile */
+  }
+
+  thead th, tbody td {
+    padding: 8px; /* Reduce padding for more compact table */
+  }
+
+  .table-wrap table td {
+    word-wrap: break-word; /* Ensure content wraps properly */
+    overflow: hidden; /* Prevent overflow from affecting the layout */
+    text-overflow: ellipsis; /* Show ellipsis for very long text */
+  }
+
+  .table-wrap table td:last-child {
+    width: 150px; /* Ensure 'Actions' column stays narrow */
+  }
+}
+
+@media (max-width: 480px) {
+  :host {
+    padding: 4px;
+  }
+  .table-wrap table {
+    padding: 0;
+    font-size: 11px; /* Further reduce font size for very small screens */
+  }
+
+  .table-wrap table td {
+    padding: 6px; /* Further reduce padding */
+  }
+}
