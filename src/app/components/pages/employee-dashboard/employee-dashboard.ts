@@ -119,9 +119,11 @@ export class EmployeeDashboardComponent implements OnInit {
 
   /** Delete an employee by ID */
   delete(id: number) {
-    this.employees = this.employees.filter(e => e.id !== id);
-    this.save();
-    this.applyFilters();
+    if(confirm("Are you sure to delete record")) {
+      this.employees = this.employees.filter(e => e.id !== id);
+      this.save();
+      this.applyFilters();
+    }
   }
 
   /** Save employees list to localStorage */
