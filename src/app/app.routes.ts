@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard';
+import { EmployeeDashboardComponent } from './components/pages/employee-dashboard/employee-dashboard';
 
 export const routes: Routes = [
   {

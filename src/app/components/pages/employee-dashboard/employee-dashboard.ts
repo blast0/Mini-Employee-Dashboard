@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
-import { Employee } from '../../models/employee.model';
-import { EmployeeService } from '../../services/employee.service';
+import { Employee } from '../../../models/employee.model';
+import { EmployeeService } from '../../../services/employee.service';
 
 @Component({
   selector: 'app-employee-dashboard',
