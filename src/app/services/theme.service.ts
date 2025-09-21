@@ -2,20 +2,22 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  private themeKey = 'app-theme';
-  darkThemeClass = 'light';
+  private themeKey = 'app-theme';   // Key for localStorage
+  darkThemeClass = 'light';         // Current theme class (default: light)
 
   constructor() {
-    // Load saved theme on service initialization
+    // Load saved theme on app start
     const savedTheme = localStorage.getItem(this.themeKey);
     if (savedTheme) {
       this.darkThemeClass = savedTheme;
       document.body.classList.add(savedTheme);
     } else {
+      // If no theme saved, apply default (light)
       document.body.classList.add(this.darkThemeClass);
     }
   }
 
+  /** Enable dark theme */
   enableDarkTheme(): void {
     document.body.classList.remove(this.darkThemeClass);
     this.darkThemeClass = 'dark-theme';
@@ -23,6 +25,7 @@ export class ThemeService {
     localStorage.setItem(this.themeKey, this.darkThemeClass);
   }
 
+  /** Enable light theme */
   disableDarkTheme(): void {
     document.body.classList.remove(this.darkThemeClass);
     this.darkThemeClass = 'light';
@@ -30,6 +33,7 @@ export class ThemeService {
     localStorage.setItem(this.themeKey, this.darkThemeClass);
   }
 
+  /** Toggle between light and dark themes */
   toggleDarkTheme(): void {
     if (this.darkThemeClass === 'light') {
       this.enableDarkTheme();
@@ -38,6 +42,7 @@ export class ThemeService {
     }
   }
 
+  /** Return current theme */
   getTheme(): string {
     return this.darkThemeClass;
   }

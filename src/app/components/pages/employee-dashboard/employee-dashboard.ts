@@ -12,43 +12,58 @@ import { EmployeeService } from '../../../services/employee.service';
   styleUrls: ['./employee-dashboard.scss']
 })
 export class EmployeeDashboardComponent implements OnInit {
+  // Full list of employees
   employees: Employee[] = [];
+  // Employees after applying search/filter/sort
   filteredEmployees: Employee[] = [];
+
+  // Static list of departments for dropdown
   departments = ['HR', 'Engineering', 'Sales', 'Marketing'];
+
+  // Reactive form for employee add/edit
   form!: FormGroup;
+  // Track ID of employee being edited, null means adding a new employee
   editingId: number | null = null;
 
+  // Sorting options
   sortField: 'name' | 'dateOfJoining' | null = null;
   sortAsc = true;
 
+  // Form controls for search and department filter
   searchControl!: any;
   filterDeptControl!: any;
 
+  // Dark mode toggle (can be used in template)
   darkMode = false;
 
   constructor(private fb: FormBuilder, private employeeService: EmployeeService) {}
 
   ngOnInit() {
-    // Load initial employees from service
+    // Load initial employees from service (could be from localStorage)
     this.employees = this.employeeService.getAll();
 
+    // Build form structure
     this.buildForm();
 
+    // Initialize search and filter controls
     this.searchControl = this.fb.control('');
     this.filterDeptControl = this.fb.control('');
 
+    // Apply initial filters
     this.applyFilters();
 
+    // Re-apply filters when search or filter changes
     this.searchControl.valueChanges.subscribe(() => this.applyFilters());
     this.filterDeptControl.valueChanges.subscribe(() => this.applyFilters());
 
-    // Optional: Subscribe to changes from service to keep in sync if updated elsewhere
+    // Optional: Keep in sync with service updates
     this.employeeService.employees$.subscribe(list => {
       this.employees = list;
       this.applyFilters();
     });
   }
 
+  /** Build the reactive form with validation */
   buildForm() {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -58,10 +73,12 @@ export class EmployeeDashboardComponent implements OnInit {
     });
   }
 
+  // Convenience getter for form controls in template
   get f() {
     return this.form.controls;
   }
 
+  /** Custom validator to disallow future joining dates */
   noFutureDate(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     if (value && new Date(value) > new Date()) {
@@ -70,48 +87,56 @@ export class EmployeeDashboardComponent implements OnInit {
     return null;
   }
 
+  /** Submit form - add or update employee */
   submit() {
     if (this.form.invalid) return;
 
     const emp: Employee = {
-      id: this.editingId ?? Date.now(),
+      id: this.editingId ?? Date.now(), // Generate ID if new
       ...this.form.value
     };
 
     if (this.editingId) {
+      // Update existing employee
       const idx = this.employees.findIndex(e => e.id === this.editingId);
       this.employees[idx] = emp;
     } else {
+      // Add new employee
       this.employees.push(emp);
     }
 
-    this.save();
-    this.form.reset();
-    this.editingId = null;
-    this.applyFilters();
+    this.save();              // Save to localStorage
+    this.form.reset();        // Clear form
+    this.editingId = null;    // Reset edit mode
+    this.applyFilters();      // Re-apply filters
   }
 
+  /** Load employee data into form for editing */
   startEdit(emp: Employee) {
     this.editingId = emp.id;
     this.form.patchValue(emp);
   }
 
+  /** Delete an employee by ID */
   delete(id: number) {
     this.employees = this.employees.filter(e => e.id !== id);
     this.save();
     this.applyFilters();
   }
 
+  /** Save employees list to localStorage */
   save() {
     localStorage.setItem('employees_v1', JSON.stringify(this.employees));
   }
 
+  /** Apply search, filter, and sorting on employee list */
   applyFilters() {
     let list = [...this.employees];
 
     const search = this.searchControl.value?.toLowerCase() || '';
     const dept = this.filterDeptControl.value || '';
 
+    // Filter by search keyword (name/email)
     if (search) {
       list = list.filter(
         e =>
@@ -120,10 +145,12 @@ export class EmployeeDashboardComponent implements OnInit {
       );
     }
 
+    // Filter by department
     if (dept) {
       list = list.filter(e => e.department === dept);
     }
 
+    // Apply sorting if chosen
     if (this.sortField) {
       const field = this.sortField;
       list.sort((a, b) => {
@@ -142,6 +169,7 @@ export class EmployeeDashboardComponent implements OnInit {
     this.filteredEmployees = list;
   }
 
+  /** Set or toggle sort field */
   setSort(field: 'name' | 'dateOfJoining') {
     if (this.sortField === field) {
       this.sortAsc = !this.sortAsc;
@@ -152,6 +180,7 @@ export class EmployeeDashboardComponent implements OnInit {
     this.applyFilters();
   }
 
+  /** Export filtered employees to CSV file */
   exportCsv() {
     const headers = ['ID', 'Name', 'Email', 'Department', 'Date of Joining'];
     const rows = this.filteredEmployees.map(e => [
@@ -163,6 +192,7 @@ export class EmployeeDashboardComponent implements OnInit {
     ]);
     const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
 
+    // Create download link and trigger
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -172,6 +202,7 @@ export class EmployeeDashboardComponent implements OnInit {
     window.URL.revokeObjectURL(url);
   }
 
+  /** Cancel editing and reset form */
   cancel() {
     this.editingId = null;
     this.form.reset();
