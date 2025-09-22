@@ -21,7 +21,7 @@ Core Features:
 Bonus Features:
 - Dark mode toggle
 - Export to CSV
-- 20 Test specs
+- 21 Test specs
 
 Technologies Used:
 - Frontend: Angular (v20)
