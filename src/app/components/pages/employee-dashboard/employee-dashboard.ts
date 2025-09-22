@@ -27,7 +27,7 @@ export class EmployeeDashboardComponent implements OnInit {
 
   // Sorting options
   sortField: 'name' | 'dateOfJoining' | null = null;
-  sortAsc = true;
+  sortAsc: boolean = true;
 
   // Form controls for search and department filter
   searchControl!: any;
@@ -36,7 +36,8 @@ export class EmployeeDashboardComponent implements OnInit {
   // Dark mode toggle (can be used in template)
   darkMode = false;
 
-  constructor(private fb: FormBuilder, private employeeService: EmployeeService) {}
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
+  }
 
   ngOnInit() {
     // Load initial employees from service (could be from localStorage)
@@ -90,9 +91,8 @@ export class EmployeeDashboardComponent implements OnInit {
   /** Submit form - add or update employee */
   submit() {
     if (this.form.invalid) return;
-
     const emp: Employee = {
-      id: this.editingId ?? Date.now(), // Generate ID if new
+      id: this.editingId ?? this.employees.length ? Math.max(... this.employees.map(e => e.id)) + 1 : 1, // Generate ID if new
       ...this.form.value
     };
 

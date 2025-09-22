@@ -50,16 +50,16 @@ describe('ThemeToggler', () => {
     expect(service.toggleDarkTheme).toHaveBeenCalled();
   });
 
-  // it('should reflect checked state from service', () => {
-  //   service['theme'] = 'light';
-  //   fixture.detectChanges();
-  //   const input = fixture.debugElement.query(By.css('.switch__input')).nativeElement as HTMLInputElement;
-  //   expect(input.checked).toBeTrue();
+  it('should reflect checked state from service', () => {
+    service['theme'] = 'light';
+    fixture.detectChanges();
+    const input = fixture.debugElement.query(By.css('.switch__input')).nativeElement as HTMLInputElement;
+    expect(input.checked).toBeTrue();
 
-  //   service['theme'] = 'dark';
-  //   fixture.detectChanges();
-  //   expect(input.checked).toBeFalse();
-  // });
+    // service['theme'] = 'dark';
+    // fixture.detectChanges();
+    // expect(input.checked).toBeFalse();
+  });
 
   it('should toggle theme when input is changed', () => {
     const input = fixture.debugElement.query(By.css('.switch__input')).nativeElement as HTMLInputElement;
