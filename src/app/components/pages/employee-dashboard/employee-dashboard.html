@@ -127,11 +127,13 @@
           <td>{{ emp['dateOfJoining'] }}</td>
           <td class="actions">
             <button class="edit" (click)="startEdit(emp)">Edit</button>
-            <confirm-modal 
-             btnText="Delete"
-             btnClass="delete"
-             (closeEvt)="delete($event, emp.id)"></confirm-modal>
-          </td>
+             @if(editingId!==emp.id){
+               <confirm-modal 
+               btnText="Delete"
+               btnClass="delete"
+               (closeEvt)="delete($event, emp.id)"></confirm-modal>
+              }
+              </td>
         </tr>
       }
       @if (filteredEmployees.length === 0) {
