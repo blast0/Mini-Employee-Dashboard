@@ -1,10 +1,10 @@
 :host {
   display: block;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  padding: 18px;
+  padding: 50px;
   color: #222;
   background: #f7f7f8;
-  min-height: 100vh;
+  min-height: calc(100vh - 86px);
   transition: background .2s, color .2s;
 }
 
@@ -20,6 +20,7 @@ body.dark-theme :host {
   align-items:center;
   margin-bottom:12px;
 }
+
 .topbar h2 { margin:0; }
 
 .form-card {
@@ -62,9 +63,12 @@ body.dark-theme :host select {
 .error { color:#c62828; font-size:12px; display:block; margin-top:6px; }
 
 .form-actions {
-  margin-top:12px;
+  // padding-bottom: 2px;
+  height: 100%;
   display:flex;
-  gap:8px;
+  flex-direction: row;
+  align-items: center;
+  gap:12px;
 }
 button {
   padding:8px 12px;
@@ -75,7 +79,7 @@ button {
   color:white;
 }
 button.secondary { background:#6b7280; }
-button.danger { background:#d32f2f; }
+button.danger { background:#FF0033; }
 
 .controls {
   margin:12px 0;
@@ -84,31 +88,97 @@ button.danger { background:#d32f2f; }
   flex-wrap:wrap;
   align-items:center;
 }
-.controls input, .controls select { width:auto; min-width:180px; outline: none; }
+.controls input, .controls select { width:auto; height: 33px; min-width:180px; outline: none; }
 
-.sorts button { margin-right:6px; margin-top: 5px; }
+.sorts button { margin-right:6px; margin-top: 6px; }
 
-.table-wrap table {
-  width:100%;
-  border-collapse:collapse;
-  background:transparent;
-}
-thead th {
-  text-align:left;
-  padding:10px;
-  font-size:13px;
-  color:#555;
-}
-tbody td {
-  padding:10px;
-  border-top:1px solid rgba(0,0,0,0.06);
-  font-size:14px;
-}
-body.dark-theme :host tbody td {
-  border-top:1px solid rgba(255,255,255,0.04);
+.actions button { margin:2px; background: transparent; }
+
+/* Add Button */
+button.Add {
+  background: transparent;
+  border: 1.5px solid yellowgreen; // blue outline
+  color: yellowgreen;
+  margin-top: 10px;
+  &:hover {
+    transition: all 0.2s ease;
+    background: yellowgreen;
+    color: white;
+  }
 }
 
-.actions button { margin:2px; }
+/* Add Clear */
+button.Clear {
+  background: transparent;
+  border: 1.5px solid grey; // blue outline
+  color: grey;
+  margin-top: 10px;
+  &:hover {
+    transition: all 0.2s ease;
+    background: grey;
+    color: white;
+  }
+}
+
+/* Add Cancel */
+button.Cancel {
+  background: transparent;
+  border: 1.5px solid darkorange; // blue outline
+  color: darkorange;
+  margin-top: 10px;
+  &:hover {
+    transition: all 0.2s ease;
+    background: darkorange;
+    color: white;
+  }
+}
+
+/* Update Button */
+button.Update {
+  background: transparent;
+  border: 1.5px solid yellowgreen; // blue outline
+  color: yellowgreen;
+  margin-top: 10px;
+  &:hover {
+    transition: all 0.2s ease;
+    background: yellowgreen;
+    color: white;
+  }
+}
+
+/* sortby Buttons */
+button.sortbyname,.sortbydoj,.exportcsv {
+  background: transparent;
+  border: 1.5px solid #0b5cff; // blue outline
+  color: #0b5cff;
+  &:hover {
+    transition: all 0.2s ease;
+    background: #0b5cff;
+    color: white;
+  }
+}
+
+/* Edit Button */
+button.edit {
+  border: 1.5px solid #ffde04; // blue outline
+  color: #ffde04;
+  &:hover {
+    transition: all 0.2s ease;
+    background: #ffde04;
+    color: white;
+  }
+}
+
+/* Delete Button */
+button.delete {
+  border: 1.5px solid #FF0033; // red outline
+  color: #FF0033;
+  &:hover {
+    transition: all 0.2s ease;
+    background: #FF0033;
+    color: white;
+  }
+}
 
 .empty { text-align:center; padding:18px; color:#666; }
 
@@ -116,62 +186,61 @@ body.dark-theme :host tbody td {
 .switch { display:flex; gap:8px; align-items:center; cursor:pointer; user-select:none;}
 .switch input { transform:scale(1.1); margin-right:6px; outline: none; }
 
-.table-wrap table {
-  width: 100%;
-  border-collapse: collapse;
-  background: transparent;
-  table-layout: fixed; /* Ensures that the table cells take up equal space */
+.table-wrap {
+  border-radius: 4px;
+  overflow: hidden; /* clips table to rounded corners */
 }
 
-thead th, tbody td {
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse; /* keep nice grid */
+  table-layout: fixed;
+  background: transparent;
+}
+
+thead th,
+tbody td {
   text-align: left;
   padding: 10px;
   font-size: 13px;
   color: #555;
-  overflow-wrap: break-word; /* Ensures long words like emails or IDs wrap */
-  word-wrap: break-word; /* Additional fallback for some older browsers */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  border: 1px solid rgba(0, 0, 0, 0.12); /* Adds grid lines between all cells */
 }
 
 tbody td {
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
   font-size: 14px;
-  white-space: normal; /* Prevents text from overflowing out of table cell */
+  white-space: normal;
 }
 
+/* Dark theme adjustment */
+body.dark-theme :host thead th,
 body.dark-theme :host tbody td {
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Softer white grid lines */
 }
 
+/* Responsive tweaks */
 @media (max-width: 768px) {
-  .table-wrap table {
-    font-size: 12px; /* Reduce font size for mobile */
+  .table-wrap table { font-size: 12px; }
+  :host {
+    padding: 18px;
   }
-
-  thead th, tbody td {
-    padding: 8px; /* Reduce padding for more compact table */
-  }
+  thead th,
+  tbody td { padding: 8px; }
 
   .table-wrap table td {
-    word-wrap: break-word; /* Ensure content wraps properly */
-    overflow: hidden; /* Prevent overflow from affecting the layout */
-    text-overflow: ellipsis; /* Show ellipsis for very long text */
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .table-wrap table td:last-child {
-    width: 150px; /* Ensure 'Actions' column stays narrow */
+    width: 150px;
   }
 }
 
 @media (max-width: 480px) {
-  :host {
-    padding: 4px;
-  }
-  .table-wrap table {
-    padding: 0;
-    font-size: 11px; /* Further reduce font size for very small screens */
-  }
-
-  .table-wrap table td {
-    padding: 6px; /* Further reduce padding */
-  }
+  .table-wrap table { font-size: 11px; }
+  .table-wrap table td { padding: 6px; }
 }

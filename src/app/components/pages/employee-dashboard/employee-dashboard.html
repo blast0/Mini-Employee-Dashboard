@@ -67,8 +67,8 @@
     </div>
 
     <div class="form-actions">
-      <button type="submit">{{ editingId ? 'Update' : 'Add' }}</button>
-      <button type="button" class="secondary" (click)="cancel()">Cancel</button>
+      <button type="submit" [class]="editingId ? 'Update' : 'Add'">{{ editingId ? 'Update' : 'Add' }}</button>
+      <button type="button" [class]="editingId ? 'Cancel' : 'Clear'" (click)="cancel()">{{editingId ? 'Cancel' : 'Clear'}}</button>
     </div>
   </form>
 </section>
@@ -88,19 +88,19 @@
   </select>
 
   <div class="sorts">
-    <button (click)="setSort('name')">
+    <button class="sortbyname" (click)="setSort('name')">
       Sort by Name
       @if (sortField === 'name') {
         {{ sortAsc ? '▲' : '▼' }}
       }
     </button>
-    <button (click)="setSort('dateOfJoining')">
+    <button class="sortbydoj" (click)="setSort('dateOfJoining')">
       Sort by DOJ
       @if (sortField === 'dateOfJoining') {
         {{ sortAsc ? '▲' : '▼' }}
       }
     </button>
-    <button (click)="exportCsv()">Export CSV</button>
+    <button class="exportcsv" (click)="exportCsv()">Export CSV</button>
   </div>
 
 </section>
@@ -126,8 +126,8 @@
           <td>{{ emp['department'] }}</td>
           <td>{{ emp['dateOfJoining'] }}</td>
           <td class="actions">
-            <button (click)="startEdit(emp)">Edit</button>
-            <button class="danger" (click)="delete(emp.id)">Delete</button>
+            <button class="edit" (click)="startEdit(emp)">Edit</button>
+            <button class="delete" (click)="delete(emp.id)">Delete</button>
           </td>
         </tr>
       }
