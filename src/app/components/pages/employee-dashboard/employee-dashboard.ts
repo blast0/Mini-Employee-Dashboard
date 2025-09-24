@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeService } from '../../../services/employee.service';
+import { ConfirmModal } from '../../ui-elements/confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-employee-dashboard',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ConfirmModal],
   templateUrl: './employee-dashboard.html',
   styleUrls: ['./employee-dashboard.scss']
 })
@@ -118,8 +119,8 @@ export class EmployeeDashboardComponent implements OnInit {
   }
 
   /** Delete an employee by ID */
-  delete(id: number) {
-    if(confirm("Are you sure to delete record")) {
+  delete(isConfirmed: boolean, id: number) {
+    if(isConfirmed) {
       this.employees = this.employees.filter(e => e.id !== id);
       this.save();
       this.applyFilters();

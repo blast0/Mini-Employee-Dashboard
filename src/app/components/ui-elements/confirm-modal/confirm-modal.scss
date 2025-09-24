@@ -1,0 +1,48 @@
+/* Delete Button */
+button.delete {
+background: transparent;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  margin-left: 2px;
+  border: 1.5px solid #FF0033; // red outline
+  color: #FF0033;
+  &:hover {
+    transition: all 0.2s ease;
+    background: #FF0033;
+    color: white;
+  }
+}
+
+/*Cancel Button */
+button.cancel {
+background: transparent;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  margin-left: 2px;
+  border: 1.5px solid #d8506b; // red outline
+  color: #d8506b;
+  &:hover {
+    transition: all 0.2s ease;
+    background: #d8506b;
+    color: white;
+  }
+}
+
+/*Cancel Button */
+button.ok {
+background: transparent;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  margin-left: 4px;
+  border: 1.5px solid #50d88d; // red outline
+  color: #4fee96;
+  &:hover {
+    transition: all 0.2s ease;
+    background: #4fee96;
+    color: white;
+  }
+}
+

@@ -127,7 +127,10 @@
           <td>{{ emp['dateOfJoining'] }}</td>
           <td class="actions">
             <button class="edit" (click)="startEdit(emp)">Edit</button>
-            <button class="delete" (click)="delete(emp.id)">Delete</button>
+            <confirm-modal 
+             btnText="Delete"
+             btnClass="delete"
+             (closeEvt)="delete($event, emp.id)"></confirm-modal>
           </td>
         </tr>
       }
