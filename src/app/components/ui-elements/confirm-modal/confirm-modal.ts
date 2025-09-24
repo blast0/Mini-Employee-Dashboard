@@ -23,13 +23,13 @@ import {
 export class ConfirmModal {
   readonly dialog = inject(MatDialog);
   @Output() closeEvt: EventEmitter<boolean>=new EventEmitter<boolean>()
+  @Output() onClick: EventEmitter<void>=new EventEmitter<void>()
   @Input() btnText: String="Modal button"
   @Input() btnClass: String="modalbtn"
 
   openDialog(): void {
-    
+    this.onClick.emit()
     const dialogRef = this.dialog.open(ConfirmModalDialog, {  width: '320px', restoreFocus: false, panelClass: 'no-radius-dialog'});
-
     dialogRef.afterClosed().subscribe(result => {
       this.closeEvt.emit(result) 
     });

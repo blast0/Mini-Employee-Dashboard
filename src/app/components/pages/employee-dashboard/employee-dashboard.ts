@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractContro
 import { Employee } from '../../../models/employee.model';
 import { EmployeeService } from '../../../services/employee.service';
 import { ConfirmModal } from '../../ui-elements/confirm-modal/confirm-modal';
+import { MatTooltipModule } from '@angular/material/tooltip';;
 
 @Component({
   selector: 'app-employee-dashboard',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ConfirmModal],
+  imports: [CommonModule, ReactiveFormsModule, ConfirmModal, MatTooltipModule],
   templateUrl: './employee-dashboard.html',
   styleUrls: ['./employee-dashboard.scss']
 })
@@ -25,6 +26,8 @@ export class EmployeeDashboardComponent implements OnInit {
   form!: FormGroup;
   // Track ID of employee being edited, null means adding a new employee
   editingId: number | null = null;
+  // Track ID of employee being deleted, null means adding a no employee being deleted
+  deletingId: number | null = null;
 
   // Sorting options
   sortField: 'name' | 'dateOfJoining' | null = null;
@@ -117,6 +120,11 @@ export class EmployeeDashboardComponent implements OnInit {
     this.editingId = emp.id;
     this.form.patchValue(emp);
   }
+  
+  /** Set Deletion id for delete request */
+  deleting(id: number){
+     this.deletingId=id
+  }
 
   /** Delete an employee by ID */
   delete(isConfirmed: boolean, id: number) {
@@ -125,6 +133,7 @@ export class EmployeeDashboardComponent implements OnInit {
       this.save();
       this.applyFilters();
     }
+    this.deletingId=null
   }
 
   /** Save employees list to localStorage */

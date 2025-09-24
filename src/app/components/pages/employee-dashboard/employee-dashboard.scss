@@ -36,6 +36,7 @@ body.dark-theme :host .form-card {
 }
 
 .row {
+  margin-top: 10px;
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap:12px;
@@ -180,6 +181,10 @@ button.delete {
   }
 }
 
+.dept-filter{
+  cursor: pointer;
+}
+
 .empty { text-align:center; padding:18px; color:#666; }
 
 /* switch */
@@ -212,6 +217,14 @@ tbody td {
 tbody td {
   font-size: 14px;
   white-space: normal;
+}
+
+tr.editing {
+  border: 2px solid #ffde04;
+}
+
+tr.deleting {
+  border: 2px solid #FF0033;
 }
 
 /* Dark theme adjustment */

@@ -9,7 +9,7 @@
     <div class="row">
       <label>
         Name
-        <input type="text" formControlName="name" />
+        <input type="text" formControlName="name" placeholder="Employee Name" />
         @if (f['name'].touched && f['name'].invalid) {
           <small class="error">
             @if (f['name'].errors?.['required']) {
@@ -24,7 +24,7 @@
 
       <label>
         Email
-        <input type="email" formControlName="email" />
+        <input type="email" formControlName="email" placeholder="Employee Name" />
         @if (f['email'].touched && f['email'].invalid) {
           <small class="error">
             @if (f['email'].errors?.['required']) {
@@ -67,8 +67,8 @@
     </div>
 
     <div class="form-actions">
-      <button type="submit" [class]="editingId ? 'Update' : 'Add'">{{ editingId ? 'Update' : 'Add' }}</button>
-      <button type="button" [class]="editingId ? 'Cancel' : 'Clear'" (click)="cancel()">{{editingId ? 'Cancel' : 'Clear'}}</button>
+      <button type="submit" matTooltip="Add Employee to Employee List" [class]="editingId ? 'Update' : 'Add'">{{ editingId ? 'Update' : 'Add' }}</button>
+      <button type="button" matTooltip="Clear Employee Form" [class]="editingId ? 'Cancel' : 'Clear'" (click)="cancel()">{{editingId ? 'Cancel' : 'Clear'}}</button>
     </div>
   </form>
 </section>
@@ -80,7 +80,7 @@
     [formControl]="searchControl"
   />
 
-  <select [formControl]="filterDeptControl">
+  <select class="dept-filter" matTooltip="Filter by Department(s)" [formControl]="filterDeptControl">
     <option value="">All Departments</option>
     @for (d of departments; track d) {
       <option [value]="d">{{ d }}</option>
@@ -88,19 +88,19 @@
   </select>
 
   <div class="sorts">
-    <button class="sortbyname" (click)="setSort('name')">
+    <button matTooltip="Sort by Employee Name" class="sortbyname" (click)="setSort('name')">
       Sort by Name
       @if (sortField === 'name') {
         {{ sortAsc ? '▲' : '▼' }}
       }
     </button>
-    <button class="sortbydoj" (click)="setSort('dateOfJoining')">
+    <button matTooltip="Sort by Date of Joining" class="sortbydoj" (click)="setSort('dateOfJoining')">
       Sort by DOJ
       @if (sortField === 'dateOfJoining') {
         {{ sortAsc ? '▲' : '▼' }}
       }
     </button>
-    <button class="exportcsv" (click)="exportCsv()">Export CSV</button>
+    <button matTooltip="Download table in csv format" class="exportcsv" (click)="exportCsv()">Export CSV</button>
   </div>
 
 </section>
@@ -117,30 +117,34 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
-      @for (emp of filteredEmployees; track emp.id) {
-        <tr>
-          <td>{{ emp.id }}</td>
-          <td>{{ emp['name'] }}</td>
-          <td>{{ emp['email'] }}</td>
-          <td>{{ emp['department'] }}</td>
-          <td>{{ emp['dateOfJoining'] }}</td>
-          <td class="actions">
-            <button class="edit" (click)="startEdit(emp)">Edit</button>
-             @if(editingId!==emp.id){
-               <confirm-modal 
-               btnText="Delete"
-               btnClass="delete"
-               (closeEvt)="delete($event, emp.id)"></confirm-modal>
-              }
-              </td>
-        </tr>
-      }
-      @if (filteredEmployees.length === 0) {
-        <tr>
-          <td colspan="6" class="empty">No employees found.</td>
-        </tr>
-      }
-    </tbody>
+<tbody>
+  @for (emp of filteredEmployees; track emp.id) {
+    <tr [class.editing]="editingId === emp.id"
+      [class.deleting]="deletingId === emp.id">
+      <td>{{ emp.id }}</td>
+      <td>{{ emp['name'] }}</td>
+      <td>{{ emp['email'] }}</td>
+      <td>{{ emp['department'] }}</td>
+      <td>{{ emp['dateOfJoining'] }}</td>
+      <td class="actions">
+        <button matTooltip="Edit Employee details" class="edit" (click)="startEdit(emp)">Edit</button>
+        @if(editingId !== emp.id){
+          <confirm-modal 
+            matTooltip="Delete this Employee"
+            btnText="Delete"
+            btnClass="delete"
+            (onClick)="deleting(emp.id)"
+            (closeEvt)="delete($event, emp.id)">
+          </confirm-modal>
+        }
+      </td>
+    </tr>
+  }
+  @if (filteredEmployees.length === 0) {
+    <tr>
+      <td colspan="6" class="empty">No employees found.</td>
+    </tr>
+  }
+</tbody>
   </table>
 </section>
