@@ -33,7 +33,6 @@ export class ConfirmModal {
   openDialog(): void {
     this.onClick.emit();
     const dialogRef = this.dialog.open(ConfirmModalDialog, {
-      width: '320px',
       restoreFocus: false,
       panelClass: 'no-radius-dialog',
       data: {
