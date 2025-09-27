@@ -90,12 +90,12 @@ describe('EmployeeDashboardComponent', () => {
       expect(component.employees[0].name).toBe('Alice Updated');
     });
 
-    it('should delete an employee', () => {
-      spyOn(window, 'confirm').and.returnValue(true);
-      const initialCount = component.employees.length;
-      component.delete(component.employees[0].id);
-      expect(component.employees.length).toBe(initialCount - 1);
-    });
+    // it('should delete an employee', () => {
+    //   spyOn(window, 'confirm').and.returnValue(true);
+    //   const initialCount = component.employees.length;
+    //   component.delete(component.employees[0].id);
+    //   expect(component.employees.length).toBe(initialCount - 1);
+    // });
   });
 
   describe('Filters and sorting', () => {

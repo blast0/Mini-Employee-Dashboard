@@ -21,7 +21,8 @@ Core Features:
 Bonus Features:
 - Dark mode toggle
 - Export to CSV
-- 21 Test specs
+- Dynamic Modal to Verify delete/other delicate operations (Resuable and Customizable for other tasks)
+- 26 Test specs
 
 Technologies Used:
 - Frontend: Angular (v20)

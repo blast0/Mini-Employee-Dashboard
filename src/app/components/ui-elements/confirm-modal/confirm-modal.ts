@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Inject, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialog,
@@ -8,6 +8,7 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /**
  * @title Dialog Animations
@@ -26,12 +27,23 @@ export class ConfirmModal {
   @Output() onClick: EventEmitter<void>=new EventEmitter<void>()
   @Input() btnText: String="Modal button"
   @Input() btnClass: String="modalbtn"
+  @Input() modalTitle: String="Modal title"
+  @Input() modalContent: String="Modal Content"
 
   openDialog(): void {
-    this.onClick.emit()
-    const dialogRef = this.dialog.open(ConfirmModalDialog, {  width: '320px', restoreFocus: false, panelClass: 'no-radius-dialog'});
+    this.onClick.emit();
+    const dialogRef = this.dialog.open(ConfirmModalDialog, {
+      width: '320px',
+      restoreFocus: false,
+      panelClass: 'no-radius-dialog',
+      data: {
+        title: this.modalTitle,
+        content: this.modalContent,
+      }
+    });
+
     dialogRef.afterClosed().subscribe(result => {
-      this.closeEvt.emit(result) 
+      this.closeEvt.emit(result);
     });
   }
 }
@@ -50,6 +62,8 @@ export class ConfirmModal {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmModalDialog {
-  readonly dialogRef = inject(MatDialogRef<ConfirmModalDialog>);
-  
+  constructor(
+    readonly dialogRef: MatDialogRef<ConfirmModalDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: { title: string; content: string }
+  ) {}
 }

@@ -131,6 +131,8 @@
         @if(editingId !== emp.id){
           <confirm-modal 
             matTooltip="Delete this Employee"
+            modalTitle="Delete Employee"
+            modalContent="Are you sure you want to delete this Employee?"
             btnText="Delete"
             btnClass="delete"
             (onClick)="deleting(emp.id)"
