@@ -2,11 +2,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #2c3e50;
-  padding: 0.8rem 1.5rem;
+  background: #0b5cff;
+  padding: 0.8rem 50px;
   color: #fff;
   .logo {
     font-size: 1.4rem;
     font-weight: bold;
+  }
+}
+
+body.dark-theme :host .navbar {
+    background: #1f1f1f;
+  } 
+   
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.8rem 1.5rem;
   }
 }
