@@ -16,6 +16,7 @@ Name field:
 - Name must not be longer than 100 characters
 - Name should not contain symbols like !@$#%^&*... 
 - Empty spaces must be removed from both ends (the beginning and the end)
+
 Email field:
 - Empty spaces must be removed from both ends (the beginning and the end)
 
