@@ -10,6 +10,10 @@ How to Run Tests:
 
 This is a minimal Angular (v20) project scaffold for the **Mini Employee Dashboard** assignment.
 
+Assumptions for Extra Validation: 
+Name field: Name must not be longer than 100 characters, Name should not contain symbols like !@$#%^&*...
+
+
 Core Features:
 - List, Add, Edit, and Delete employees with real-time updates.
 - Data Persistence: Employee data is persisted in localStorage via an Angular service, ensuring data remains even after a page reload.

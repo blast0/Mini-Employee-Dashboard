@@ -71,7 +71,7 @@ export class EmployeeDashboardComponent implements OnInit {
   /** Build the reactive form with validation */
   buildForm() {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100), Validators.pattern(/^[\p{L} ]+$/u)]],
       email: ['', [Validators.required, Validators.email]],
       department: ['', Validators.required],
       dateOfJoining: ['', [Validators.required, this.noFutureDate]]

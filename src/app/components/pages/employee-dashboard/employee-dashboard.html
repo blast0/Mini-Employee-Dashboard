@@ -18,6 +18,12 @@
             @if (f['name'].errors?.['minlength']) {
               Name must be at least 3 characters.
             }
+            @if (f['name'].errors?.['maxLength']) {
+              Name must be atmost 100 characters.
+            }
+            @if (f['name'].errors?.['pattern']) {
+              Name cannot have symbols.
+            }
           </small>
         }
       </label>
