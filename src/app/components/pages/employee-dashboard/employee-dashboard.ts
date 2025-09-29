@@ -97,7 +97,9 @@ export class EmployeeDashboardComponent implements OnInit {
     if (this.form.invalid) return;
     const emp: Employee = {
       id: this.editingId ?? this.employees.length ? Math.max(... this.employees.map(e => e.id)) + 1 : 1, // Generate ID if new
-      ...this.form.value
+      ...this.form.value,
+      name: this.form.value.name?.trim(),
+      email: this.form.value.email?.trim(),
     };
 
     if (this.editingId) {
