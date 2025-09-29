@@ -12,8 +12,12 @@ This is a minimal Angular (v20) project scaffold for the **Mini Employee Dashboa
 
 Assumptions for Extra Validation: 
 
-Name field: Name must not be longer than 100 characters, Name should not contain symbols like !@$#%^&*... , empty spaces must be removed from both ends (the beginning and the end)
-Email field: empty spaces must be removed from both ends (the beginning and the end)
+Name field:
+- Name must not be longer than 100 characters
+- Name should not contain symbols like !@$#%^&*... 
+- Empty spaces must be removed from both ends (the beginning and the end)
+Email field:
+- Empty spaces must be removed from both ends (the beginning and the end)
 
 Core Features:
 - List, Add, Edit, and Delete employees with real-time updates.
